@@ -1,0 +1,220 @@
+{% extends "student_layout.html" %}
+
+{% block page_title %}Ticket #{{ ticket.ticket_id }}{% endblock %}
+
+{% block main_content %}
+<div class="card mb-6">
+    <div class="card-header-with-actions">
+        <div>
+            <h3>{{ ticket.subject }}</h3>
+            <p class="text-muted">Ticket ID: {{ ticket.ticket_id }}</p>
+        </div>
+        <span class="status-badge 
+            {% if ticket.status == 'Open' %}red
+            {% elif ticket.status == 'In Progress' %}yellow
+            {% elif ticket.status == 'Closed' %}green
+            {% endif %}">
+            {{ ticket.status }}
+        </span>
+    </div>
+    
+    <div class="card-body">
+        <div class="info-row">
+            <span class="info-label">Created:</span>
+            <span class="info-value">{{ ticket.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Last Update:</span>
+            <span class="info-value">
+                {% if ticket.messages %}
+                    {{ ticket.messages[-1].created_at.strftime('%Y-%m-%d %H:%M') }}
+                {% else %}
+                    {{ ticket.created_at.strftime('%Y-%m-%d %H:%M') }}
+                {% endif %}
+            </span>
+        </div>
+        {% if ticket.related_application %}
+            <div class="info-row">
+                <span class="info-label">Related Application:</span>
+                <span class="info-value">{{ ticket.related_application.app_id }} - {{ ticket.related_application.program }}</span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Conversation</h3>
+    </div>
+    
+    <div class="card-body p-0">
+        <div class="chat-container">
+            <div class="chat-messages">
+                {% for message in ticket.messages %}
+                    <div class="chat-message {% if message.sender == 'Student' %}outgoing{% else %}incoming{% endif %}">
+                        <div class="message-content">
+                            <p>{{ message.message }}</p>
+                            <p class="message-time">{{ message.created_at.strftime('%Y-%m-%d %H:%M') }} - {{ message.sender }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            {% if ticket.status != 'Closed' %}
+                <form id="student-reply-form" method="POST" action="{{ url_for('student_ticket_reply', ticket_id=ticket.id) }}" class="chat-form" data-ticket-id="{{ ticket.id }}">
+                    <input type="text" id="student-reply-message" name="message" placeholder="Type your message here" required>
+                    <button type="submit" class="btn primary">Send</button>
+                </form>
+            {% else %}
+                <div class="p-4 text-center border-t">
+                    <p class="text-muted">This ticket is closed. Please create a new ticket if you need further assistance.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="form-actions mt-4">
+    <a href="{{ url_for('student_support') }}" class="btn outline">Back to Tickets</a>
+    
+    {% if ticket.status != 'Closed' %}
+        <button id="close-ticket-btn" class="btn danger" data-id="{{ ticket.id }}">Close Ticket</button>
+    {% else %}
+        <a href="{{ url_for('student_new_ticket') }}" class="btn primary">Create New Ticket</a>
+    {% endif %}
+</div>
+
+<!-- Close Ticket Confirmation Modal -->
+<div id="close-ticket-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Close Ticket</h3>
+            <button class="close-modal btn-icon">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <p>Are you sure you want to close this ticket? This will mark the issue as resolved.</p>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn outline close-modal">Cancel</button>
+            <form id="close-ticket-form" method="POST" action="{{ url_for('student_close_ticket', ticket_id=ticket.id) }}">
+                <button type="submit" class="btn primary">Close Ticket</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Auto-scroll chat to bottom on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatMessages = document.querySelector('.chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+    
+    // Handle AJAX form submission for replies
+    const replyForm = document.getElementById('student-reply-form');
+    if (replyForm) {
+        replyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const ticketId = this.getAttribute('data-ticket-id');
+            const messageInput = document.getElementById('student-reply-message');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('message', message);
+            
+            fetch(`/student/support/reply/${ticketId}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Add new message to chat
+                    const chatMessages = document.querySelector('.chat-messages');
+                    const now = new Date().toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    const newMessage = document.createElement('div');
+                    newMessage.className = 'chat-message outgoing';
+                    newMessage.innerHTML = `
+                        <div class="message-content">
+                            <p>${message}</p>
+                            <p class="message-time">${now} - Student</p>
+                        </div>
+                    `;
+                    
+                    chatMessages.appendChild(newMessage);
+                    
+                    // Clear input
+                    messageInput.value = '';
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    }
+    
+    // Close ticket modal
+    const closeTicketBtn = document.getElementById('close-ticket-btn');
+    const closeTicketModal = document.getElementById('close-ticket-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal');
+    
+    if (closeTicketBtn) {
+        closeTicketBtn.addEventListener('click', function() {
+            closeTicketModal.classList.remove('hidden');
+        });
+    }
+    
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            closeTicketModal.classList.add('hidden');
+        });
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === closeTicketModal) {
+            closeTicketModal.classList.add('hidden');
+        }
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .p-0 {
+        padding: 0 !important;
+    }
+    
+    .border-t {
+        border-top: 1px solid #e5e7eb;
+    }
+    
+    /* Chat styles are already in the main CSS, but adding any specific overrides here */
+    .chat-container {
+        height: 400px; /* Fixed height for better UI */
+    }
+</style>
+{% endblock %}

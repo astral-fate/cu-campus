@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Register - University Portal{% endblock %}
+
+{% block content %}
+<div class="auth-screen">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Create a new account</h2>
+            <p>Or <a href="{{ url_for('login') }}" class="btn-link">sign in to your existing account</a></p>
+        </div>
+        
+        <div class="auth-form-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form id="register-form" class="auth-form" method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="fullName">Full name</label>
+                    <input id="fullName" name="fullName" type="text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input id="email" name="email" type="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input id="phone" name="phone" type="tel" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nationality">Nationality</label>
+                    <select id="nationality" name="nationality" required>
+                        <option value="Egyptian">Egyptian</option>
+                        <option value="International">International</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="education">Highest Education Level</label>
+                    <select id="education" name="education" required>
+                        <option value="">Select education level</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" required>
+                </div>
+                
+                <button type="submit" class="btn primary full-width">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

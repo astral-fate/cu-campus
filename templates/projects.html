@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="header-section">
+    <div class="container">
+        <div class="header-content">
+            <h1 class="display-4 fw-bold mb-3">مستودع المشاريع</h1>
+            <p class="lead mb-4">اكتشف المشاريع البحثية المبتكرة وإنجازات الطلاب</p>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Navigation -->
+<section class="categories-nav py-4" dir="rtl">
+    <div class="container">
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+            <button class="btn btn-primary category-btn active" data-category="all">جميع المشاريع</button>
+            {% for category in categories %}
+            <button class="btn btn-outline-primary category-btn" 
+                    data-category="{{ category }}">{{ category }}</button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects-section py-5" dir="rtl">
+    <div class="container">
+        <div class="row g-4" id="projectsContainer">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 project-item" data-category="{{ project.category }}">
+                <div class="project-card h-100">
+                    <div class="project-img-container">
+                        {% if project.image_path %}
+                        <img src="{{ url_for('static', filename=project.image_path) }}" 
+                             class="project-img" 
+                             alt="{{ project.title }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='img/default-project.jpg') }}" 
+                             class="project-img" 
+                             alt="Default Project Image">
+                        {% endif %}
+                        {% if project.is_popular %}
+                        <span class="badge bg-primary position-absolute top-0 start-0 m-2">مميز</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="project-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description[:150] }}{% if project.description|length > 150 %}...{% endif %}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="badge bg-light text-dark">{{ project.category }}</span>
+                            {% if project.url %}
+                            <a href="{{ project.url }}" class="btn btn-primary project-btn" target="_blank">عرض المشروع</a>
+                            {% else %}
+                            <a href="{{ url_for('project_details', project_id=project.id) }}" class="btn btn-primary project-btn">التفاصيل</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+    const searchInput = document.getElementById('searchInput');
+
+    // Category filter functionality
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            const selectedCategory = button.dataset.category;
+
+            projectItems.forEach(item => {
+                if (selectedCategory === 'all' || item.dataset.category === selectedCategory) {
+                    item.style.display = 'block';
+                    // Add animation class
+                    item.classList.add('fade-in');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('fade-in');
+                }
+            });
+        });
+    });
+
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            projectItems.forEach(item => {
+                const title = item.querySelector('.project-title').textContent.toLowerCase();
+                const description = item.querySelector('.card-text').textContent.toLowerCase();
+                const category = item.dataset.category.toLowerCase();
+                
+                if (title.includes(searchTerm) || 
+                    description.includes(searchTerm) || 
+                    category.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

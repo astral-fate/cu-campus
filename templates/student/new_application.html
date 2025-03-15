@@ -1,0 +1,170 @@
+{% extends "student_layout.html" %}
+
+{% block page_title %}New Application{% endblock %}
+
+{% block main_content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Start New Application</h3>
+    </div>
+    
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('student_new_application') }}">
+            <div class="form-group">
+                <label for="program">Program</label>
+                <select id="program" name="program" class="form-input" required>
+                    <option value="">Select a program</option>
+                    <option value="Master of Business Administration">Master of Business Administration</option>
+                    <option value="Master of Science in Computer Science">Master of Science in Computer Science</option>
+                    <option value="Master of Engineering">Master of Engineering</option>
+                    <option value="PhD in Computer Science">PhD in Computer Science</option>
+                    <option value="PhD in Economics">PhD in Economics</option>
+                    <option value="PhD in Engineering">PhD in Engineering</option>
+                </select>
+                <p class="text-muted mt-2">Select the program you want to apply for</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="term">Term</label>
+                <select id="term" name="term" class="form-input" required>
+                    <option value="">Select a term</option>
+                    <option value="Fall 2023">Fall 2023</option>
+                    <option value="Spring 2024">Spring 2024</option>
+                    <option value="Summer 2024">Summer 2024</option>
+                    <option value="Fall 2024">Fall 2024</option>
+                </select>
+                <p class="text-muted mt-2">When do you want to start your studies?</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="study_type">Study Type</label>
+                <select id="study_type" name="study_type" class="form-input" required>
+                    <option value="">Select a study type</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                </select>
+            </div>
+            
+            <div class="alert info mt-6">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <h4>Application Process Information</h4>
+                    <p>After submitting your application, you will need to upload the following documents:</p>
+                    <ul style="list-style-type: disc; margin-left: 1.5rem;">
+                        <li>Bachelor's degree certificate (or equivalent)</li>
+                        <li>Academic transcript</li>
+                        <li>CV/Resume</li>
+                        <li>ID card or passport</li>
+                        <li>Passport-size photo</li>
+                    </ul>
+                    <p class="mt-2">Once your documents are verified, you will be notified to proceed with the payment.</p>
+                </div>
+            </div>
+            
+            <div class="form-group mt-6">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I confirm that all the information I will provide is true and accurate.</label>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{{ url_for('student_applications') }}" class="btn outline">Cancel</a>
+                <button type="submit" class="btn primary">Submit Application</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-6">
+    <div class="card-header">
+        <h3>Program Information</h3>
+    </div>
+    
+    <div class="card-body">
+        <div id="program-details">
+            <p class="text-muted text-center">Please select a program above to see its details.</p>
+        </div>
+        
+        <div id="mba-details" class="program-info hidden">
+            <h4>Master of Business Administration</h4>
+            <p class="mb-4">The MBA program is designed to develop the skills required for careers in business and management.</p>
+            
+            <div class="info-row">
+                <span class="info-label">Duration:</span>
+                <span class="info-value">2 years (full-time), 3 years (part-time)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Credits:</span>
+                <span class="info-value">60 credit hours</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Tuition:</span>
+                <span class="info-value">80,000 EGP (Egyptian), 120,000 EGP (International)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Requirements:</span>
+                <span class="info-value">Bachelor's degree with GPA of at least 2.75</span>
+            </div>
+        </div>
+        
+        <div id="mscs-details" class="program-info hidden">
+            <h4>Master of Science in Computer Science</h4>
+            <p class="mb-4">The MSCS program provides advanced knowledge in computer science and prepares students for research and development careers.</p>
+            
+            <div class="info-row">
+                <span class="info-label">Duration:</span>
+                <span class="info-value">2 years (full-time), 3 years (part-time)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Credits:</span>
+                <span class="info-value">36 credit hours</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Tuition:</span>
+                <span class="info-value">70,000 EGP (Egyptian), 110,000 EGP (International)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Requirements:</span>
+                <span class="info-value">Bachelor's degree in Computer Science or related field with GPA of at least 3.0</span>
+            </div>
+        </div>
+        
+        <!-- Additional program details would go here -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Show program details based on selection
+    document.getElementById('program').addEventListener('change', function() {
+        const programValue = this.value;
+        const programDetails = document.getElementById('program-details');
+        const programInfos = document.querySelectorAll('.program-info');
+        
+        // Hide all program info sections
+        programInfos.forEach(info => {
+            info.classList.add('hidden');
+        });
+        
+        // Show default message when no program is selected
+        if (!programValue) {
+            programDetails.classList.remove('hidden');
+            return;
+        }
+        
+        // Hide default message
+        programDetails.classList.add('hidden');
+        
+        // Show selected program details
+        if (programValue === 'Master of Business Administration') {
+            document.getElementById('mba-details').classList.remove('hidden');
+        } else if (programValue === 'Master of Science in Computer Science') {
+            document.getElementById('mscs-details').classList.remove('hidden');
+        }
+        // Additional logic for other programs would go here
+    });
+</script>
+{% endblock %}

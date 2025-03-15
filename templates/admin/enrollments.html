@@ -1,0 +1,562 @@
+{% extends "admin_layout.html" %}
+
+{% block page_title %}Student Enrollments{% endblock %}
+
+{% block main_content %}
+<div class="card">
+    <div class="card-header-with-actions">
+        <h3>Pending Student ID Generation</h3>
+        <div class="header-actions">
+            <div class="search-container">
+                <input type="text" id="search-pending" placeholder="Search pending enrollments..." class="form-input">
+            </div>
+            <select id="program-filter" class="form-input">
+                <option value="">All Programs</option>
+                <option value="Master of Business Administration">MBA</option>
+                <option value="Master of Science in Computer Science">MSc Computer Science</option>
+                <option value="Master of Engineering">M.Eng</option>
+                <option value="PhD">PhD Programs</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <table class="full-width-table">
+            <thead>
+                <tr>
+                    <th>Application ID</th>
+                    <th>Student Name</th>
+                    <th>Program</th>
+                    <th>Nationality</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                    <tr>
+                        <td>{{ enrollment.app_id }}</td>
+                        <td>{{ enrollment.user.full_name }}</td>
+                        <td>{{ enrollment.program }}</td>
+                        <td>{{ enrollment.user.nationality }}</td>
+                        <td>
+                            {% set displayed = false %}
+                            {% for payment in enrollment.user.payments if payment.application_id == enrollment.id %}
+                                {% if not displayed %}
+                                    {{ payment.amount }} EGP
+                                    {% set displayed = true %}
+                                {% endif %}
+                            {% else %}
+                                N/A
+                            {% endfor %}
+                        </td>
+                        {% for item in items %}
+                            {% if loop.index <= max_items %}
+                                {# Process item #}
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            <button class="btn primary generate-id-btn" data-id="{{ enrollment.id }}">
+                                Generate ID
+                            </button>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No pending enrollments found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card mt-6">
+    <div class="card-header-with-actions">
+        <h3>Enrolled Students</h3>
+        <div class="header-actions">
+            <div class="search-container">
+                <input type="text" id="search-enrolled" placeholder="Search enrolled students..." class="form-input">
+            </div>
+            <select id="year-filter" class="form-input">
+                <option value="">All Years</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <table class="full-width-table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Program</th>
+                    <th>Nationality</th>
+                    <th>Enrollment Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application, student_id in enrolled_students %}
+                    <tr>
+                        <td>{{ student_id.student_id }}</td>
+                        <td>{{ application.user.full_name }}</td>
+                        <td>{{ application.program }}</td>
+                        <td>{{ application.user.nationality }}</td>
+                        <td>{{ student_id.created_at.strftime('%Y-%m-%d') }}</td>
+                        <td><span class="status-badge green">Active</span></td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn" onclick="viewStudentDetails('{{ student_id.student_id }}')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="action-btn" onclick="printStudentID('{{ student_id.student_id }}')">
+                                    <i class="fas fa-print"></i> Print ID
+                                </button>
+                                <button class="action-btn message" onclick="messageStudent('{{ application.user_id }}')">
+                                    <i class="fas fa-envelope"></i> Message
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No enrolled students found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Enrollment statistics -->
+<div class="card mt-6">
+    <div class="card-header">
+        <h3>Enrollment Statistics</h3>
+    </div>
+    
+    <div class="card-body">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-content">
+                    <div>
+                        <h3 class="stat-title">Total Enrollments</h3>
+                        <p class="stat-value">{{ enrolled_students|length }}</p>
+                    </div>
+                    <div class="stat-icon blue">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-content">
+                    <div>
+                        <h3 class="stat-title">Local Students</h3>
+                        <p class="stat-value">
+                            {% set local_count = 0 %}
+                            {% for app, _ in enrolled_students if app.user.nationality == 'Egyptian' %}
+                                {% set local_count = local_count + 1 %}
+                            {% endfor %}
+                            {{ local_count }}
+                        </p>
+                    </div>
+                    <div class="stat-icon green">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-content">
+                    <div>
+                        <h3 class="stat-title">International</h3>
+                        <p class="stat-value">
+                            {% set international_count = 0 %}
+                            {% for app, _ in enrolled_students if app.user.nationality == 'International' %}
+                                {% set international_count = international_count + 1 %}
+                            {% endfor %}
+                            {{ international_count }}
+                        </p>
+                    </div>
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-content">
+                    <div>
+                        <h3 class="stat-title">Pending IDs</h3>
+                        <p class="stat-value">{{ enrollments|length }}</p>
+                    </div>
+                    <div class="stat-icon red">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6">
+            <h4 class="mb-4">Enrollments by Program</h4>
+            <div class="table-container">
+                <table class="full-width-table">
+                    <thead>
+                        <tr>
+                            <th>Program</th>
+                            <th>Enrolled</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set programs = {} %}
+                        {% for app, _ in enrolled_students %}
+                            {% if app.program in programs %}
+                                {% set _ = programs.update({app.program: programs[app.program] + 1}) %}
+                            {% else %}
+                                {% set _ = programs.update({app.program: 1}) %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% for program, count in programs.items() %}
+                            <tr>
+                                <td>{{ program }}</td>
+                                <td>{{ count }}</td>
+                                <td>{{ ((count / enrolled_students|length) * 100)|round(1) }}%</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center">No data available</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Student Details Modal -->
+<div id="student-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Student Details</h3>
+            <button class="close-modal btn-icon">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div id="student-details">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <h4 class="mt-4">Academic Information</h4>
+            <div id="academic-info" class="mt-3">
+                <!-- Will be filled by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn outline close-modal">Close</button>
+            <button id="print-id-btn" class="btn primary">Print Student ID</button>
+        </div>
+    </div>
+</div>
+
+<!-- Generate ID Modal -->
+<div id="generate-id-modal" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Generate Student ID</h3>
+            <button class="close-modal btn-icon">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div id="student-info">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <div class="form-group mt-4">
+                <label for="id-prefix">ID Prefix (Optional)</label>
+                <input type="text" id="id-prefix" class="form-input" placeholder="Leave blank for default (STU-YYYY-)" maxlength="10">
+                <p class="text-muted">Custom prefix for the student ID</p>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn outline close-modal">Cancel</button>
+            <button id="confirm-generate-id-btn" class="btn primary">Generate ID</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Search pending enrollments
+    document.getElementById('search-pending').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#pending-enrollments tbody tr');
+        
+        rows.forEach(row => {
+            const appId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+            const student = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const program = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            
+            if (appId.includes(searchValue) || 
+                student.includes(searchValue) || 
+                program.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+    
+    // Search enrolled students
+    document.getElementById('search-enrolled').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#enrolled-students tbody tr');
+        
+        rows.forEach(row => {
+            const studentId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+            const student = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const program = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            
+            if (studentId.includes(searchValue) || 
+                student.includes(searchValue) || 
+                program.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+    
+    // Program filter
+    document.getElementById('program-filter').addEventListener('change', function() {
+        const filterValue = this.value;
+        const rows = document.querySelectorAll('#pending-enrollments tbody tr');
+        
+        rows.forEach(row => {
+            if (!filterValue) {
+                row.style.display = '';
+                return;
+            }
+            
+            const program = row.querySelector('td:nth-child(3)').textContent.trim();
+            
+            if (program === filterValue) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+    
+    // Year filter
+    document.getElementById('year-filter').addEventListener('change', function() {
+        const filterValue = this.value;
+        const rows = document.querySelectorAll('#enrolled-students tbody tr');
+        
+        rows.forEach(row => {
+            if (!filterValue) {
+                row.style.display = '';
+                return;
+            }
+            
+            const enrollmentDate = row.querySelector('td:nth-child(5)').textContent.trim();
+            const year = enrollmentDate.split('-')[0];
+            
+            if (year === filterValue) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+    
+    // Generate Student ID
+    const generateIdBtns = document.querySelectorAll('.generate-id-btn');
+    const generateIdModal = document.getElementById('generate-id-modal');
+    const studentModal = document.getElementById('student-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal');
+    
+    // Show Generate ID Modal
+    generateIdBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const appId = this.getAttribute('data-id');
+            const row = this.closest('tr');
+            
+            // Get student details from the row
+            const applicationId = row.querySelector('td:nth-child(1)').textContent;
+            const studentName = row.querySelector('td:nth-child(2)').textContent;
+            const program = row.querySelector('td:nth-child(3)').textContent;
+            const nationality = row.querySelector('td:nth-child(4)').textContent;
+            
+            // Fill in student info
+            document.getElementById('student-info').innerHTML = `
+                <div class="info-row">
+                    <span class="info-label">Application ID:</span>
+                    <span class="info-value">${applicationId}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Student Name:</span>
+                    <span class="info-value">${studentName}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Program:</span>
+                    <span class="info-value">${program}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Nationality:</span>
+                    <span class="info-value">${nationality}</span>
+                </div>
+            `;
+            
+            // Set the application ID for the confirm button
+            document.getElementById('confirm-generate-id-btn').setAttribute('data-id', appId);
+            
+            // Show the modal
+            generateIdModal.classList.remove('hidden');
+        });
+    });
+    
+    // Close modals
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            generateIdModal.classList.add('hidden');
+            studentModal.classList.add('hidden');
+        });
+    });
+    
+    // Generate ID from modal
+    document.getElementById('confirm-generate-id-btn').addEventListener('click', function() {
+        const appId = this.getAttribute('data-id');
+        const prefix = document.getElementById('id-prefix').value.trim();
+        
+        const formData = new FormData();
+        if (prefix) {
+            formData.append('prefix', prefix);
+        }
+        
+        fetch(`/admin/generate_student_id/${appId}`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Close the modal
+                generateIdModal.classList.add('hidden');
+                
+                // Show success message
+                alert(`Student ID ${data.student_id} generated successfully!`);
+                
+                // Reload the page to reflect changes
+                window.location.reload();
+            } else {
+                alert('Error generating student ID: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while generating the student ID.');
+        });
+    });
+    
+    // View student details
+    window.viewStudentDetails = function(studentId) {
+        // In a real app, you would fetch student details via AJAX
+        // For now, we'll simulate it with mock data
+        
+        // Fill student details
+        document.getElementById('student-details').innerHTML = `
+            <div class="info-row">
+                <span class="info-label">Student ID:</span>
+                <span class="info-value">${studentId}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Name:</span>
+                <span class="info-value">John Doe</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email:</span>
+                <span class="info-value">john.doe@example.com</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Phone:</span>
+                <span class="info-value">+20 123 456 7890</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Nationality:</span>
+                <span class="info-value">Egyptian</span>
+            </div>
+        `;
+        
+        // Fill academic info
+        document.getElementById('academic-info').innerHTML = `
+            <div class="info-row">
+                <span class="info-label">Program:</span>
+                <span class="info-value">Master of Business Administration</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Enrollment Date:</span>
+                <span class="info-value">2023-03-15</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="status-badge green">Active</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Previous Education:</span>
+                <span class="info-value">Bachelor of Commerce, Cairo University</span>
+            </div>
+        `;
+        
+        // Set student ID for print button
+        document.getElementById('print-id-btn').setAttribute('data-id', studentId);
+        
+        // Show modal
+        studentModal.classList.remove('hidden');
+    };
+    
+    // Print student ID
+    window.printStudentID = function(studentId) {
+        // In a real app, this would open a print dialog or PDF
+        alert(`Printing student ID for ${studentId}`);
+    };
+    
+    // Print from modal
+    document.getElementById('print-id-btn').addEventListener('click', function() {
+        const studentId = this.getAttribute('data-id');
+        printStudentID(studentId);
+        studentModal.classList.add('hidden');
+    });
+    
+    // Message student
+    window.messageStudent = function(userId) {
+        // In a real app, this might create a new ticket or open a chat
+        alert(`Opening message dialog for user ID ${userId}`);
+    };
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === generateIdModal) {
+            generateIdModal.classList.add('hidden');
+        } else if (e.target === studentModal) {
+            studentModal.classList.add('hidden');
+        }
+    });
+</script>
+{% endblock %}
