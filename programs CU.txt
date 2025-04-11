@@ -1,0 +1,589 @@
+
+
+## 1. Project Management (إدارة المشروعات)
+
+### Diploma Courses:
+**First Semester:**
+- Fundamentals of Project Management
+- Data Analysis
+- Planning and Scheduling
+- Organization Structure and Communication
+- Decision Making
+
+**Second Semester:**
+- Budgeting and Cost
+- Crises and Risk Management
+- Project Control
+- Total Quality Management
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Feasibility Studies of Projects
+- Selected Topics in Project Management
+
+**Second Semester:**
+- Cost-Benefit Analysis and Project Evaluation
+- Project Management in Practice
+- Project Management Software
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Managing Organizational Behavior
+- Strategic Human Resource
+- Assessment of Development Projects
+
+**Second Semester:**
+- Value Analysis for Engineering Project
+- Management of Multiple Projects
+- Directed Individual Reading (Advanced Topics)
+
+## 2. Operations Research and Decision Support (بحوث العمليات ودعم القرار)
+
+### Diploma Courses:
+**First Semester:**
+- Operations Research Models and its Applications
+- Decision Support Systems
+- Business Statistical Analysis
+- Project Management and Networks
+- Inventory Management
+
+**Second Semester:**
+- Operations Management
+- Modeling and Simulation
+- Quality Control
+- Operations Research Software
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Advanced Topics in Decision Making
+- Forecasting
+
+**Second Semester:**
+- Scheduling
+- Supply Chain Management
+- Advanced Operations Research Software
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Advanced Topics in Decision Support Systems
+- Multi-criteria Decision Making
+- Probabilistic Models
+
+**Second Semester:**
+- Game Theory Applications
+- Advanced Topics in Operations Research
+- Directed Individual Readings (Advanced Topics)
+
+## 3. Supply Chain and Operations Management (سلسلة الإمداد وإدارة العمليات)
+
+### Diploma Courses:
+**First Semester:**
+- Project Management: Tools & Techniques
+- Quantitative Analysis Tools in Decision Making
+- Operations Management
+- Operations Management Software
+- Supply Chain Management
+
+**Second Semester:**
+- Business Statistical Analysis
+- Information Systems in Supply Chain
+- Production Management
+- Quality Management
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Modeling and Simulation
+- Risk Analysis & Assessment
+
+**Second Semester:**
+- Scheduling
+- Advanced Topics in Operations Management
+- Operations Management Software
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Facility Layout and Locations
+- Lean Operations Systems
+- Production and Material Requirement Planning
+
+**Second Semester:**
+- Aggregate Planning and Processes Strategy
+- Maintenance and Reliability
+- Directed Individual Readings (Advanced Topics)
+
+## 4. Web Design (تصميم المواقع)
+
+### Diploma Courses:
+**First Semester:**
+- Introduction to Computer Science
+- SQL Server Database
+- HTML 5 and CSS 3
+- Photoshop for Web Design
+- ASP.NET, JavaScript and jQuery
+
+**Second Semester:**
+- PHP Web Programming
+- Bootstrap for Responsive Web Design
+- SEO Web Development
+- Object Oriented Programming
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Advanced Website Design and Management
+- Web Application Security
+- Advanced Web Application Development
+
+**Second Semester:**
+- Advanced Database Systems
+- Agile Techniques and Practices
+- Research Methodology
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Developing Mobile Applications
+- Advances in Web Management
+- Selected Topics in Web Technology
+
+**Second Semester:**
+- Directed Individual Readings (Advanced Topics)
+- Guided Studies in Web Science
+- Supervised Individual Studies (Advanced Topics)
+
+## 5. Software Engineering (هندسة البرمجيات)
+
+### Diploma Courses:
+**First Semester:**
+- Computer Systems Principles and Programming
+- Relational Database Systems
+- The Software Development Process
+- The User Interface Design
+- Object-Oriented Software Development using UML
+
+**Second Semester:**
+- Software Project Management
+- Web Design and Architecture
+- Agile Software Development
+- Programming in the Large
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Software Quality Assurance
+- Advanced Topics in Database
+
+**Second Semester:**
+- Advanced Topics in Information Systems
+- Information Security
+- Advanced Agile Software Development
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Selected Topics in Software Engineering
+- Selected Topics in Information Systems
+- Selected Topics in Information Technology
+
+**Second Semester:**
+- Data Warehousing
+- Developing E-commerce Solutions
+- Directed Individual Readings (Advanced Topics)
+
+
+
+## 6. Population Policies & Data Analysis (السياسات السكانية وتحليل بياناتها)
+
+### Diploma Courses:
+**First Semester:**
+- Population Policies and Projections
+- Population Data Sources and Evaluation
+- Population and Development (human – Poverty – Enforcement…)
+- Using SPSS for Survey Data Analysis
+- Population Projections Using Spectrum Software
+
+**Second Semester:**
+- Labor Force Projections and Labor Market Indicators
+- Multilevel Data Analysis
+- Path Analysis & Structural Equations Using AMOS
+- Applications of Multivariate Analysis
+- Project
+
+## 7. Applied Statistics (الإحصاءات التطبيقية)
+
+### Diploma Courses:
+**First Semester:**
+- Introduction to Applied Statistics
+- Introduction to Sampling
+- Introduction to Qualitative Data Analysis
+- Time Series with Applications
+- Data Analysis using Statistical Packages (I)
+
+**Second Semester:**
+- Index Numbers
+- Regression Analysis
+- Introduction to Quantitative Data Analysis
+- Data Analysis using Statistical Packages (II)
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Qualitative Data Analysis
+- Quantitative Data Analysis
+
+**Second Semester:**
+- Econometrics
+- Introduction to Multilevel Analysis
+- Multivariate Analysis
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Data Mining
+- Advanced Multilevel Analysis
+- Introduction to Big Data
+
+**Second Semester:**
+- Big Data Analytics Tools
+- Advanced Multivariate Analysis
+- Directed Individual Readings (Advanced Topics)
+
+## 8. Modern Management for Human Resources (الإدارة الحديثة للموارد البشرية)
+
+### Diploma Courses:
+**First Semester:**
+- Fundamentals and Functions of Human Resource Management
+- Human Resource Information System
+- Planning of Training Programs
+- Managing Replacements
+- Human Resource Development within the Framework of Total Quality
+
+**Second Semester:**
+- Labor Laws in Egypt
+- Labor Force Planning
+- Introduction to Statistical Analysis
+- Human Resources and Job Satisfaction
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Strategic Planning for Human Resource
+- Job Ethics
+
+**Second Semester:**
+- Organizational Behavior of Human Resources
+- Planning and Managing Career Path
+- Individual Readings
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Management Strategic Planning for Human Resource
+- International Human Resource Management
+- Artificial Intelligence and Human Resources
+
+**Second Semester:**
+- Human Investment and Intellectual Capital Management
+- Recent Trends in Human Resources Management
+- Directed Individual Readings (Advanced Topics)
+
+## 9. Econometric Analysis of Time Series (التحليل القياسي للسلاسل الزمنية)
+
+### Diploma Courses:
+**First Semester:**
+- Statistical Analysis
+- Time Series and Box Jenkins Models
+- Econometric Methods
+- Mathematical Methods of Time Series
+- Statistical & Econometric Computer Packages
+
+**Second Semester:**
+- Forecasting and Goodness of Fit Model
+- Econometrics Based Time Series
+- Applications of Time Series in Various Fields
+- Panel Data Analysis
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Advanced Mathematical Methods of Time Series
+- Probability, Statistics and Stochastic Processes
+
+**Second Semester:**
+- Advanced Econometric Methods
+- Univariate Time Series
+- Multivariate Time Series
+- Project
+
+## 10. Statistical Computing (الحسابات الإحصائية)
+
+### Diploma Courses:
+**First Semester:**
+- Statistical Analysis
+- Introduction to Mathematical Statistics
+- Statistical Methods and Simulation
+- Internet Technology and Internet Software
+- Statistical Packages
+
+**Second Semester:**
+- Stochastic Models and its Applications
+- Evolutionary & Natural Computations
+- Time Series and Forecasting
+- Mathematical Modeling and Decision Analysis
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Numerical Analysis
+- Regression Analysis
+
+**Second Semester:**
+- Sampling Techniques
+- Advanced Time Series Analysis
+- Computer Packages in Statistics with Applications
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- SAS Statistical Programming
+- Advanced Numerical Techniques
+- Non-Parametric Methods
+
+**Second Semester:**
+- Advanced Python and R Programming
+- Statistical Methods in Reliability
+- Directed Individual Readings (Advanced Topics)
+
+## 11. Statistical Quality Control & Quality Assurance (الضبط الإحصائي وتوكيد الجودة)
+
+### Diploma Courses:
+**First Semester:**
+- Fundamentals of Quality Control
+- Information Systems & Knowledge Management
+- Control Charts
+- Data Analysis
+- Quality Systems
+
+**Second Semester:**
+- Project Management
+- Acceptance Sampling
+- Reliability & Replacement
+- Continuous Improvement
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Advanced Control Charts
+- Forecasting
+
+**Second Semester:**
+- Decision Making
+- Design & Analysis of Experiments
+- Efficiency & Productivity Analysis
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Simulation
+- Specifications & Standardization
+- Internal & External Auditing
+
+**Second Semester:**
+- Reengineering & Change Management
+- Advanced Continuous Improvement
+- Directed Individual Readings (Advanced Topics)
+
+## 12. Risk and Crisis Management (إدارة المخاطر والأزمات)
+
+### Diploma Courses:
+**First Semester:**
+- Crisis and Risks Management (1)
+- Financial Risk Management
+- Statistical Data Analysis and Report Writing
+- Role of Leadership in Crisis Management
+- Strategic Planning For Crisis Management
+
+**Second Semester:**
+- Role of Media in Crisis Management
+- Operations Research
+- Crisis and Risks Management (2)
+- Crisis Scientific Analysis
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Preventive Prediction of Crisis and Risk
+- Insurance in Crisis and Risks Management
+
+**Second Semester:**
+- Quantitative Analysis for Risk
+- Decision Support Role in Crisis and Risk Management
+- Individual Readings
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Strategic Planning and Crisis Management Scenarios
+- Government Role in Crisis and Risks Management
+- Artificial Intelligence in Crisis and Risks Management
+
+**Second Semester:**
+- Comparative Systems in Crisis and Risks Management
+- Simulation
+- Directed Individual Readings (Advanced Topics)
+
+## 13. Surveys and Reporting (المسوح وإعداد تقاريرها)
+
+### Diploma Courses:
+**First Semester:**
+- Surveys and their Types
+- Sampling
+- Data Entry Using CSPro
+- Metadata Analysis
+- Reproductive Data Analysis
+
+**Second Semester:**
+- Family Planning and Unmet Need (Reproductive Health)
+- Mortality and Morbidity
+- Applications of Multivariate Data
+- Conducting Surveys Reports and Publishing their Results
+- Project
+
+## 14. Data Analysis (تحليل البيانات)
+
+### Diploma Courses:
+**First Semester:**
+- Introduction to Statistics
+- Data Sources and Evaluation
+- Introduction to Sampling Techniques
+- Regression Analysis & Diagnostic
+- Data Analysis using SPSS
+
+**Second Semester:**
+- Introduction to Qualitative Data Analysis
+- Introduction to Quantitative Data Analysis
+- Introduction to Multilevel Data Analysis
+- Introduction to Multivariate Analysis
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Qualitative Data Analysis
+- Quantitative Data Analysis
+
+**Second Semester:**
+- Data Mining with Applications
+- Advanced Topics in Data Analysis
+- Multivariate Analysis
+- Project
+
+### Doctorate Courses:
+**First Semester:**
+- Advanced Qualitative Data Analysis
+- Advanced Quantitative Data Analysis
+- Advanced Multivariate Analysis
+
+**Second Semester:**
+- Advanced Data Mining
+- Advanced Multilevel Analysis
+- Directed Individual Readings (Advanced Topics)
+
+## 15. Life Testing and Reliability Analysis (اختبارات الحياة وتحليل الصلاحية)
+
+### Diploma Courses:
+**First Semester:**
+- Statistics and Probability
+- Applied Statistics
+- Survival Analysis
+- Introduction to Reliability & Life Testing
+- Statistical Packages
+
+**Second Semester:**
+- Statistical Reliability Analysis
+- Prediction and Tolerance Intervals: Measurement and Reliability
+- Statistical Methods in Reliability
+- Applications of Reliability and Life Testing
+- Project
+
+## 16. Measuring Public Opinion Polls (قياس استطلاعات الرأى العام)
+
+### Diploma Courses:
+**First Semester:**
+- Public Opinion Polls Guide
+- Public Opinion Survey Design
+- Means of Survey and Measurement, the Art of Personal Interviews, the Code of Ethics and Professional Practices
+- Analysis of Survey Data
+- Areas Covered in Public Opinion Polls
+
+**Second Semester:**
+- Using SPSS in Analyzing Survey Data
+- Trend and Content Analysis: An In-depth Analysis
+- Preparation of Survey Reports and Publishing their Results
+- Practical Examples of Public Opinion Surveys, Performance Evaluation and Quality Assurance
+- Project
+
+## 17. Statistical Research and Development (البحوث الإحصائية والتطوير)
+
+### Diploma Courses:
+**First Semester:**
+- Basics of Research and Development (R & D)
+- Data Mining
+- Continuous Improvement
+- Decision Making
+- Creativity and Innovation
+
+**Second Semester:**
+- Value Engineering
+- Reengineering and Change Management
+- Forecasting and Early Warning
+- Simulation
+- Project
+
+### Master's Courses:
+**First Semester:**
+- Principles and Methodologies of Scientific Research
+- Project Management
+- Artificial Intelligence
+
+**Second Semester:**
+- Business Analysis
+- Intelligent Data Analysis
+- Risk Analysis
+- Project
+
+## 18. Human Development & Resources (التنمية البشرية ومواردها)
+
+### Diploma Courses:
+**First Semester:**
+- Basic Human Development
+- Health, Education and Labor Force & Human Development
+- Estimating Human Development
+- Population Fundamentals
+- Statistical Methods
+
+**Second Semester:**
+- Basic Management Skills
+- Forecasting of Human Development Demand
+- Human Development Economic
+- Population Projection using Computer Packages
+- Project
+
+
+
